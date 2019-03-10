@@ -1,3 +1,3 @@
 git add .
-git commit -m "adding code to change dir *.* /s output to database insert statements"
+git commit -m "adding code to create multiple sets of code from a template"
 git push -u origin master
