@@ -1,6 +1,6 @@
 import xml.etree.cElementTree as ET
 
-context = ET.iterparse('/Users/myalias/Documents/myxml2.xml', events=("start", "end"))
+context = ET.iterparse('/Users/[myalias]/Documents/myxml2.xml', events=("start", "end"))
 
 context = iter(context)
 tag1b_tag = False
@@ -33,20 +33,3 @@ for event, elem in context:
     if event == 'end' and tag =='tag1b' :
         tag1b_tag = False
     elem.clear()
-
-#<root>
-# <tag1> id="mytag1id"
-#  <tag1b> id="tag1b my id"
-#   <tag2>
-#    <tag3>tag3wow</tag3>
-#   </tag2>
-#  </tag1b>
-# </tag1>
-# <tag1> id="mytag1id2"
-#  <tag1b> id="tag1b my id2"
-#   <tag2>
-#    <tag3>tag3wow2</tag3>
-#   </tag2>
-#  </tag1b>
-# </tag1>
-#</root>
