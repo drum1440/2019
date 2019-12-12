@@ -1,0 +1,102 @@
+Given 2 tiny .csv files
+
+<pre>
+cat t7.csv
+col1
+t7 1 row
+</pre>
+
+    
+<pre>
+cat t8.csv
+col1
+t8 2 rows
+t8 2 rows
+</pre>
+
+log into cypher
+
+    bin/cypher-shell -u neo4j -p my password
+
+run these commands to load and display data
+
+    MATCH (T7)
+    OPTIONAL MATCH (T7)-[r]-()
+    WITH T7,r LIMIT 5000
+    DELETE T7,r
+    RETURN count(T7) as deletedNodesCount;
+    
+    USING PERIODIC COMMIT
+    LOAD CSV WITH HEADERS FROM "file:///t7.csv" as line
+    CREATE (T7 {col1:line.col1});
+    
+    MATCH T7 = (t7)
+    RETURN t7.col1;
+
+<pre>
++------------+
+| a.col1     |
++------------+
+| "t7 1 row" |
++------------+
+</pre>
+
+    MATCH (T8)
+    OPTIONAL MATCH (T8)-[r]-()
+    WITH T8,r LIMIT 5000
+    DELETE T8,r
+    RETURN count(T8) as deletedNodesCount;
+    
+    LOAD CSV WITH HEADERS FROM "file:///t8.csv" as line
+    CREATE (T8 {col1:line.col1});
+    
+    MATCH T8 = (t8)
+    RETURN t8.col1;
+
+<pre>
++-------------+
+| a.col1      |
++-------------+
+| "t8 2 rows" |
+| "t8 2 rows" |
++-------------+
+</pre>
+
+this gets data for most recent query, but not the correct node?
+
+    MATCH T7 = (t7)
+    RETURN t7.col1;
+
+I expected this output:
+<pre>
++------------+
+| a.col1     |
++------------+
+| "t7 1 row" |
++------------+
+</pre>
+
+Instead I received this output:
+<pre>
++-------------+
+| a.col1      |
++-------------+
+| "t8 2 rows" |
+| "t8 2 rows" |
++-------------+
+</pre>
+
+Version information:
+
+    call dbms.components() yield name, versions, edition unwind versions as version return name,               
+     version, edition;
+
+<pre>
++----------------------------------------+
+| name           | version | edition     |
++----------------------------------------+
+| "Neo4j Kernel" | "3.5.1" | "community" |
++----------------------------------------+
+</pre>
+
+Mac OS 10.13.6
