@@ -1,0 +1,370 @@
+
+echo '    '  >> /Users/brad/Documents/bprivate/savedirectory_space_savings.txt
+echo '20200425 0800 '  >> /Users/brad/Documents/bprivate/savedirectory_space_savings.txt
+echo '    '  >> /Users/brad/Documents/bprivate/savedirectory_space_savings.txt
+df -h        >> /Users/brad/Documents/bprivate/savedirectory_space_savings.txt
+
+#####################################################################################################
+# use these commands to generate Python input files
+#
+#local
+cd /Users/brad/Pictures
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypicturesiMaclocal.txt
+
+#Mac1 external drive
+cd "/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer"
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypicturesMac1BradSamsungS4.txt
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypicturesMac1Bradphotosbefore2015.txt
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT2T
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypicturesMac12T.txt
+
+#local
+cd /Users/brad/Documents
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mydocumentsiMaclocal.txt
+
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypictures_Mac2WDMyBook4Tb.txt
+
+
+
+# temporary
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromseaexfat1t_Mac1
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypictures_Mac2WDMyBook4Tb_fromseaexfat1t_Mac1.txt
+
+# temporary
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromWindows10laptop
+find . -type f -iname "*.jpg" -exec ls -ls {} \; | sort -k 10 > mypictures_Mac2WDMyBook4Tb_fromWindows10laptop.txt
+
+
+#####################################################################################################
+# format for running Python programs
+# see /Users/brad/Documents/bprivate for python code
+#####################################################################################################
+
+#local
+cd /Users/brad/Pictures
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 1 1> /Users/brad/Documents/savedirectoryinfoneo4j_local_pictures_output$(date +%Y%m%d_%H%M%S).txt 2> /Users/brad/Documents/savedirectoryinfoneo4j_local_pictures_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat pictures_iMaclocal.csv | wc -l
+cat pictures_iMaclocal.csv | grep "<-ERROR" | wc -l
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT1T
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 2 1> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradsamsungs4_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradsamsungs4_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat '/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer/picturesMac1_1T_BradSamsungS4.csv' | wc -l
+cat '/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer/picturesMac1_1T_BradSamsungS4.csv' | grep "<-ERROR" | wc -l
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT1T
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 3 1> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradphotosbefore2015_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradphotosbefore2015_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat /Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined/picturesMac1_1T_Bradphotosbefore2015.csv | wc -l
+cat /Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined/picturesMac1_1T_Bradphotosbefore2015.csv | grep "<-ERROR" | wc -l
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT2T
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 4 1> /Volumes/SEAEXFAT2T/savedirectoryinfoneo4jSeagate2T_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT2T/savedirectoryinfoneo4jSeagate2T_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat /Volumes/SEAEXFAT2T/picturesMac1_2T_Mac12T.csv | wc -l
+cat /Volumes/SEAEXFAT2T/picturesMac1_2T_Mac12T.csv | grep "<-ERROR" | wc -l
+
+
+#local
+cd /Users/brad/Documents
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 5 1> /Users/brad/Documents/savedirectoryinfoneo4j_local_documents_output$(date +%Y%m%d_%H%M%S).txt 2> /Users/brad/Documents/savedirectoryinfoneo4j_local_documents_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat documents_iMaclocal.csv | wc -l
+cat documents_iMaclocal.csv | grep "<-ERROR" | wc -l
+
+
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 6 1> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat /Volumes/WDMyBook4Tb/picturesMac2_Mac2WDMyBook4Tb.csv | wc -l
+cat /Volumes/WDMyBook4Tb/picturesMac2_Mac2WDMyBook4Tb.csv | grep "<-ERROR" | wc -l
+
+# temporary
+
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromseaexfat1t_Mac1
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 7 1> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromseaexfat1t_Mac1_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromseaexfat1t_Mac1_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat picturesMac2_Mac2WDMyBook4Tb_fromseaexfat1t_Mac1.csv | wc -l
+cat picturesMac2_Mac2WDMyBook4Tb_fromseaexfat1t_Mac1.csv | grep "<-ERROR" | wc -l
+
+# temporary
+
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromWindows10laptop
+echo $(date +%Y%m%d_%H%M%S)
+python /Users/brad/Documents/bprivate/A-savedirectoryinfoneo4j_combined.py 8 1> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromWindows10laptop_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromWindows10laptop_syserr$(date +%Y%m%d_%H%M%S).txt
+echo $(date +%Y%m%d_%H%M%S)
+
+cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | wc -l
+cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | grep "<-ERROR" | wc -l
+
+#####################################################################################################
+
+#local
+cd /Users/brad/Pictures
+cp pictures_iMaclocal.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT1T/"Brad Samsung S4 phone Android File Transfer"
+cp picturesMac1_1T_BradSamsungS4.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT1T/"BradBackupPhotos_before_2015_combined"
+cp picturesMac1_1T_Bradphotosbefore2015.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#Mac1 external drive
+cd /Volumes/SEAEXFAT2T
+cp picturesMac1_2T_Mac12T.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#local
+cd /Users/brad/Documents
+cp documents_iMaclocal.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb
+cp picturesMac2_Mac2WDMyBook4Tb.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+# temporary
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromseaexfat1t_Mac1
+cp picturesMac2_Mac2WDMyBook4Tb_fromseaexfat1t_Mac1.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+# temporary
+#Mac2 external drive
+cd /Volumes/WDMyBook4Tb/fromWindows10laptop
+cp picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv /Users/brad/Documents/neo4j-community-3.5.1/import
+
+#####################################################################################################
+#
+#
+# .csv output files saved to /Users/brad/Documents/neo4j-community-3.5.1/import
+#
+# drive_id,drive_description,drive_prefix
+# note, ignore #5 since "find" and JOURNAL (Max format type) aren't compatible
+# 1,iMaclocal1,/Users/brad/Pictures
+# 2,Mac1 Seagate1Tb,/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer
+# 3,Mac1 Seagate1Tb,/Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined
+# 4,Mac1 Seagate2Tb,/Volumes/SEAEXFAT2T
+# 5,iMac1local2,/Users/brad/Documents
+# 6,Mac 2 Winbook1,/Volumes/WDMyBook4Tb
+# 7,Mac 2 Winbook1 subfolder 1,/Volumes/WDMyBook4Tb/fromseaexfat1t_Mac1
+# 8,Mac 2 Winbook1 subfolder 2,/Volumes/WDMyBook4Tb/fromWindows10laptop
+#
+# this one below is probably not needed...
+#folders.csv
+#folder_id,folder_location
+#
+#pictures.csv
+#drive_id,folder_name,picture_id (hex),file_name
+#
+#####################################################################################################
+
+brad #1:
+
+in Application: PostgreSQL 9.5
+start
+
+brad #2:
+
+in terminal window:
+
+psql -U postgres
+
+# psql (10.4, server 9.5.5)
+
+\q to quit psql
+
+SELECT spcname FROM pg_tablespace;
+
+mkdir postgres_brad_ts1
+
+CREATE TABLESPACE brad_ts1 OWNER postgres LOCATION '/Users/brad/postgres_brad_ts1';
+
+CREATE DATABASE brad_db
+owner postgres tablespace brad_ts1;
+
+drop table brad_t1;
+
+create table brad_t1
+(drive_id int,
+folder_name varchar(300),
+picture_hex_id varchar(4000),
+file_name varchar(300),
+-- added this column, is "int" large enough to hold our numbers?
+file_size int )
+tablespace brad_ts1;
+
+
+# can end this line with header (keyword)
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/pictures_iMaclocal.csv' delimiter ',' csv header;
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/picturesMac1_1T_BradSamsungS4.csv' delimiter ',' csv header;
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/picturesMac1_1T_Bradphotosbefore2015.csv' delimiter ',' csv header;
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/picturesMac1_2T_Mac12T.csv' delimiter ',' csv header;
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/documents_iMaclocal.csv' delimiter ',' csv header;
+\copy brad_t1 from '/Users/brad/Documents/neo4j-community-3.5.1/import/picturesMac2_Mac2WDMyBook4Tb.csv' delimiter ',' csv header;
+
+mkdir postgres_brad_ts2
+
+CREATE TABLESPACE brad_ts2 OWNER postgres LOCATION '/Users/brad/postgres_brad_ts2';
+
+create index i001 on brad_t1 (drive_id) tablespace brad_ts2;
+create index i002 on brad_t1 (drive_id, folder_name) tablespace brad_ts2;
+create index i003 on brad_t1 (drive_id, file_name) tablespace brad_ts2;
+
+select table_name from information_schema.tables where table_schema = 'public' order by 1;
+
+
+================================================================================
+SEE A-savedirectoryinfo_Postgres_queries.sql
+================================================================================
+
+# to import in Postgres in laptop 4Gb
+
+# can end this line with header (keyword)
+\copy brad_t1 from '/home/brad/Documents/pictures_iMaclocal.csv' delimiter ',' csv header;
+\copy brad_t1 from '/home/brad/Documents/picturesMac1_1T_BradSamsungS4.csv' delimiter ',' csv header;
+\copy brad_t1 from '/home/brad/Documents/picturesMac1_1T_Bradphotosbefore2015.csv' delimiter ',' csv header;
+\copy brad_t1 from '/home/brad/Documents/picturesMac1_2T_Mac12T.csv' delimiter ',' csv header;
+\copy brad_t1 from '/home/brad/Documents/documents_iMaclocal.csv' delimiter ',' csv header;
+\copy brad_t1 from '/home/brad/Documents/picturesMac2_Mac2WDMyBook4Tb.csv' delimiter ',' csv header;
+
+
+#####################################################################################################
+#
+# review with Neo4j and compare to previous Postgres results?
+#
+#####################################################################################################
+
+
+#####################################################################################################
+# quick notes of run times of Python programs above
+#####################################################################################################
+Brads-iMac:SEAEXFAT2T brad$ #local
+Brads-iMac:SEAEXFAT2T brad$ cd /Users/brad/Pictures
+Brads-iMac:Pictures brad$ echo $(date +%Y%m%d_%H%M%S)
+20200802_183952
+Brads-iMac:Pictures brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 1 1> /Users/brad/Documents/savedirectoryinfoneo4j_local_pictures_output$(date +%Y%m%d_%H%M%S).txt 2> /Users/brad/Documents/savedirectoryinfoneo4j_local_pictures_syserr$(date +%Y%m%d_%H%M%S).txt
+Brads-iMac:Pictures brad$ echo $(date +%Y%m%d_%H%M%S)
+20200802_191154
+Brads-iMac:Pictures brad$
+Brads-iMac:Pictures brad$ cat pictures_iMaclocal.csv | wc -l
+   14694
+Brads-iMac:Pictures brad$ cat pictures_iMaclocal.csv | grep "<-ERROR" | wc -l
+       0
+
+       Brads-iMac:~ brad$ cd /Volumes/SEAEXFAT1T
+       Brads-iMac:SEAEXFAT1T brad$ echo $(date +%Y%m%d_%H%M%S)
+       20200802_192114
+       Brads-iMac:SEAEXFAT1T brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 2 1> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradsamsungs4_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradsamsungs4_syserr$(date +%Y%m%d_%H%M%S).txt
+       Brads-iMac:SEAEXFAT1T brad$ echo $(date +%Y%m%d_%H%M%S)
+       20200802_192152
+       Brads-iMac:SEAEXFAT1T brad$
+       Brads-iMac:SEAEXFAT1T brad$ cat '/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer/picturesMac1_1T_BradSamsungS4.csv' | wc -l
+            461
+       Brads-iMac:SEAEXFAT1T brad$ cat '/Volumes/SEAEXFAT1T/Brad Samsung S4 phone Android File Transfer/picturesMac1_1T_BradSamsungS4.csv' | grep "<-ERROR" | wc -l
+              0
+              Brads-iMac:SEAEXFAT1T brad$ #Mac1 external drive
+              Brads-iMac:SEAEXFAT1T brad$ cd /Volumes/SEAEXFAT1T
+              Brads-iMac:SEAEXFAT1T brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200802_193516
+              Brads-iMac:SEAEXFAT1T brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 3 1> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradphotosbefore2015_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT1T/savedirectoryinfoneo4jSeagate1T_Bradphotosbefore2015_syserr$(date +%Y%m%d_%H%M%S).txt
+              Brads-iMac:SEAEXFAT1T brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200802_203552
+              Brads-iMac:SEAEXFAT1T brad$
+              Brads-iMac:SEAEXFAT1T brad$ cat /Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined/picturesMac1_1T_Bradphotosbefore2015.csv | wc -l
+                 41725
+              Brads-iMac:SEAEXFAT1T brad$ cat /Volumes/SEAEXFAT1T/BradBackupPhotos_before_2015_combined/picturesMac1_1T_Bradphotosbefore2015.csv | grep "<-ERROR" | wc -l
+                     0
+              Brads-iMac:SEAEXFAT1T brad$
+
+
+              Brads-iMac:SEAEXFAT1T brad$ #Mac1 external drive
+              Brads-iMac:SEAEXFAT1T brad$ cd /Volumes/SEAEXFAT2T
+              Brads-iMac:SEAEXFAT2T brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200802_205245
+              Brads-iMac:SEAEXFAT2T brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 4 1> /Volumes/SEAEXFAT2T/savedirectoryinfoneo4jSeagate2T_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/SEAEXFAT2T/savedirectoryinfoneo4jSeagate2T_syserr$(date +%Y%m%d_%H%M%S).txt
+              Brads-iMac:SEAEXFAT2T brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200803_000012
+              Brads-iMac:SEAEXFAT2T brad$
+              Brads-iMac:SEAEXFAT2T brad$ cat /Volumes/SEAEXFAT2T/picturesMac1_2T_Mac12T.csv | wc -l
+                128178
+              Brads-iMac:SEAEXFAT2T brad$ cat /Volumes/SEAEXFAT2T/picturesMac1_2T_Mac12T.csv | grep "<-ERROR" | wc -l
+                     0
+              Brads-iMac:SEAEXFAT2T brad$
+
+
+
+
+              Brads-iMac:~ brad$ #local
+Brads-iMac:~ brad$ cd /Users/brad/Documents
+Brads-iMac:Documents brad$ echo $(date +%Y%m%d_%H%M%S)
+20200802_205343
+Brads-iMac:Documents brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 5 1> /Users/brad/Documents/savedirectoryinfoneo4j_local_documents_output$(date +%Y%m%d_%H%M%S).txt 2> /Users/brad/Documents/savedirectoryinfoneo4j_local_documents_syserr$(date +%Y%m%d_%H%M%S).txt
+Brads-iMac:Documents brad$ echo $(date +%Y%m%d_%H%M%S)
+20200802_205551
+Brads-iMac:Documents brad$
+Brads-iMac:Documents brad$ cat documents_iMaclocal.csv | wc -l
+    1483
+Brads-iMac:Documents brad$ cat documents_iMaclocal.csv | grep "<-ERROR" | wc -l
+       0
+
+
+
+       Brads-iMac:fromWindows10laptop brad$ #Mac2 external drive
+       Brads-iMac:fromWindows10laptop brad$ cd /Volumes/WDMyBook4Tb/fromWindows10laptop
+       Brads-iMac:fromWindows10laptop brad$ echo $(date +%Y%m%d_%H%M%S)
+       20200803_183855
+       Brads-iMac:fromWindows10laptop brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 8 1> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromWindows10laptop_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_fromWindows10laptop_syserr$(date +%Y%m%d_%H%M%S).txt
+       echo $(date +%Y%m%d_%H%M%S)
+
+       cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | wc -l
+       cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | grep "<-ERROR" | wc -l
+
+       Brads-iMac:fromWindows10laptop brad$ echo $(date +%Y%m%d_%H%M%S)
+       20200803_190857
+       Brads-iMac:fromWindows10laptop brad$
+       Brads-iMac:fromWindows10laptop brad$ cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | wc -l
+          17243
+       Brads-iMac:fromWindows10laptop brad$ cat picturesMac2_Mac2WDMyBook4Tb_fromWindows10laptop.csv | grep "<-ERROR" | wc -l
+              0
+              Brads-iMac:WDMyBook4Tb brad$ #Mac2 external drive
+              Brads-iMac:WDMyBook4Tb brad$ cd /Volumes/WDMyBook4Tb
+              Brads-iMac:WDMyBook4Tb brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200803_201827
+              Brads-iMac:WDMyBook4Tb brad$ python /Users/brad/Documents/bprivate/savedirectoryinfoneo4j_combined.py 6 1> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_output$(date +%Y%m%d_%H%M%S).txt 2> /Volumes/WDMyBook4Tb/savedirectoryinfoneo4j_syserr$(date +%Y%m%d_%H%M%S).txt
+              Brads-iMac:WDMyBook4Tb brad$ echo $(date +%Y%m%d_%H%M%S)
+              20200804_002646
+              Brads-iMac:WDMyBook4Tb brad$
+              Brads-iMac:WDMyBook4Tb brad$ cat /Volumes/WDMyBook4Tb/picturesMac2_Mac2WDMyBook4Tb.csv | wc -l
+                203445
+              Brads-iMac:WDMyBook4Tb brad$ cat /Volumes/WDMyBook4Tb/picturesMac2_Mac2WDMyBook4Tb.csv | grep "<-ERROR" | wc -l
+                     0
